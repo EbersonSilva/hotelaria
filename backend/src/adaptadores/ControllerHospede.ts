@@ -202,6 +202,8 @@ export class ControllerHospede {
     }
   }
 
+  
+
   async listar(req: any, res: any): Promise<void> {
     try {
       const hospede = new Hospede('', '', '', '', '', new Endereco('', '', '', '', '', '', ''));

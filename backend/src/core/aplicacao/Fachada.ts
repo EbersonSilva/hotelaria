@@ -70,4 +70,6 @@ export class Fachada {
     // @ts-ignore - IDAO now defines reativar, but keep runtime safety
     await (dao as any).reativar(entidade);
   }
+
+  
 }
