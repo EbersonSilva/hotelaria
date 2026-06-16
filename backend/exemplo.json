@@ -1,0 +1,16 @@
+﻿{
+  "nome": "Maria Silva",
+  "cpf": "12345678901",
+  "dtNasc": "1995-03-10",
+  "telefone": "11999999999",
+  "email": "maria@exemplo.com",
+  "endereco": {
+    "logradouro": "Rua das Flores",
+    "numero": "123",
+    "complemento": "Apto 45",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "cep": "01000000"
+  }
+}
