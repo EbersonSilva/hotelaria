@@ -486,7 +486,7 @@ function Field({ label, value, onChange, placeholder, type = 'text', full, disab
         value={value} 
         placeholder={placeholder} 
         onChange={(event) => onChange(event.target.value)} 
-        disabled={disabled} /* 🟨 ESSA LINHA TRAVA O CAMPO QUANDO FOR EDIÇÃO */
+        disabled={disabled} 
       />
     </label>
   );
