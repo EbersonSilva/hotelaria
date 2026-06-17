@@ -181,6 +181,7 @@ function App() {
     setSection('cadastro');
   }
 
+  
   function handleCancelEdit() {
     setGuestForm(emptyForm);
     setEditingCpf(null);
@@ -227,6 +228,43 @@ function App() {
       showToast(message, 'danger');
     } finally {
       setLoadingGuests(false);
+    }
+  }
+
+  async function handleCepChange(value: string) {
+    setGuestForm((prev) => ({
+      ...prev,
+      endereco: { ...prev.endereco, cep: value },
+    }));
+
+    const cepLimpo = value.replace(/\D/g, '');
+    if (cepLimpo.length === 8) {
+      setFormStatus('Buscando CEP...');
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+        const data = await response.json();
+
+        if (data.erro) {
+          setFormStatus('CEP não encontrado.');
+          showToast('CEP não encontrado.', 'danger');
+        } else {
+          setGuestForm((prev) => ({
+            ...prev,
+            endereco: {
+              ...prev.endereco,
+              logradouro: data.logradouro || '',
+              bairro: data.bairro || '',
+              cidade: data.localidade || '',
+              estado: data.uf || '',
+            },
+          }));
+          setFormStatus('Endereço preenchido automaticamente.');
+          showToast('Endereço preenchido automaticamente.', 'success');
+        }
+      } catch (error) {
+        setFormStatus('Erro ao buscar o CEP.');
+        showToast('Erro ao buscar o CEP.', 'danger');
+      }
     }
   }
 
@@ -340,7 +378,7 @@ function App() {
                     <option value="false">Inativo</option>
                   </select>
                 </label> */}
-                <Field label="CEP" value={guestForm.endereco.cep} onChange={(value) => setGuestForm({ ...guestForm, endereco: { ...guestForm.endereco, cep: value } })} placeholder="00000-000" />
+                <Field label="CEP" value={guestForm.endereco.cep} onChange={(value) => void handleCepChange(value)} placeholder="00000-000" />
                 <Field label="Logradouro" full value={guestForm.endereco.logradouro} onChange={(value) => setGuestForm({ ...guestForm, endereco: { ...guestForm.endereco, logradouro: value } })} placeholder="Rua, avenida, travessa..." />
                 <Field label="Número" value={guestForm.endereco.numero} onChange={(value) => setGuestForm({ ...guestForm, endereco: { ...guestForm.endereco, numero: value } })} placeholder="123" />
                 <Field label="Complemento" value={guestForm.endereco.complemento} onChange={(value) => setGuestForm({ ...guestForm, endereco: { ...guestForm.endereco, complemento: value } })} placeholder="Apto, bloco, sala..." />

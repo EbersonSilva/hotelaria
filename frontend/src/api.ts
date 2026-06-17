@@ -1,3 +1,5 @@
+//arquivos de API para comunicação com o backend
+
 import type { FilterMode, HospedeApi, HospedeForm } from './types';
 
 const DEFAULT_BASE_URL = 'http://localhost:3000';

@@ -1,5 +1,6 @@
 import { EntidadeDominio } from '../dominio/EntidadeDominio';
 import { ValidarCPF } from '../../negocio/ValidarCPF';
+import { ValidarEmail } from '../../negocio/ValidarEmail';
 import { HospedeDAO } from '../../persistencia/HospedeDAO';
 import { IStrategy } from '../../negocio/IStrategy';
 import { IDAO } from '../../persistencia/IDAO';
@@ -11,7 +12,7 @@ export class Fachada {
   constructor() {
     this.daos.set('HOSPEDE', new HospedeDAO());
 
-    this.rns.set('SALVAR_HOSPEDE', [new ValidarCPF()]);
+    this.rns.set('SALVAR_HOSPEDE', [new ValidarCPF(), new ValidarEmail()]);
   }
 
   async salvar(entidade: EntidadeDominio, contexto: string): Promise<string | null> {

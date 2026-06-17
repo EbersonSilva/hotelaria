@@ -46,13 +46,7 @@ export class ControllerHospede {
       throw new Error('Campos obrigatórios ausentes. Preencha todos os dados do hóspede e do endereço.');
     }
 
-    const emailTexto = String(body.email).trim();
-    // Expressão regular padrão para validar estrutura de e-mail (usuario@dominio.com)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(emailTexto)) {
-      throw new Error('O formato do e-mail digitado é inválido. Exemplo correto: nome@dominio.com');
-    }
+    const emailTexto = String(body.email ?? '').trim();
 
     // Instanciação normal das entidades (O seu código original)
     const endereco = new Endereco(
